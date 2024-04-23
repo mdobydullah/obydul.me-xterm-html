@@ -3,14 +3,18 @@ let commands = {
         f: (terminal) => commandHelp(terminal),
         description: 'Print this help message',
     },
+    about: {
+        f: (terminal) => commandAbout(terminal),
+        description: 'About Md Obydullah',
+    },
     ls: {
         f: (terminal) => {
             Object.keys(commands).forEach(key => {
-                terminal.writeln(key);
+                terminal.writeln(key)
             });
             terminal.prompt()
         },
-        description: 'Print directory structure'
+        description: 'Print available commands'
     },
     clear: {
         f: (terminal) => {
@@ -22,6 +26,12 @@ let commands = {
     },
 };
 
+function commandAbout(terminal) {
+    terminal.writeln(`${color('yellow', 'Md Obydullah')} is a software engineer, server administrator, ethical hacker and enthusiastic problem solver🚀  from Bangladesh.`)
+    terminal.writeln(`He is currently working at \x1b]8;;https://www.electronicfirst.com\x07Electronic First\x1b]8;;\x07 as a ${color('green', 'Senior Software Engineer')}.`)
+    terminal.writeln("Follow him on \x1b]8;;https://twitter.com/0xObydul\x07X (Twitter)\x1b]8;;\x07 to know about his recent activities.")
+    terminal.prompt()
+}
 
 function commandHelp(terminal) {
     const padding = 10;
@@ -66,4 +76,15 @@ function commandHelp(terminal) {
         ...Object.keys(commands).map(e => formatMessage(e, commands[e].description))
     ].join('\n\r'));
     terminal.prompt()
+}
+
+function color(color, text) {
+    code = 0;
+
+    if (color === 'red') code = 31;
+    if (color === 'green') code = 32;
+    if (color === 'yellow') code = 33;
+    if (color === 'blue') code = 34;
+
+    return `\x1B[${code};1m${text}\x1B[0m`;
 }

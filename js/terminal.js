@@ -10,7 +10,6 @@ function callWithDelay(func, delay) {
 function startApp() {
     const delay = 50;
     const scrollBackLimit = 5000; // current limit is 5000, change it in future if required
-    const fitAddon = new FitAddon.FitAddon();
     const terminal = new Terminal({
         rows: 30,
         screenKeys: true,
@@ -22,6 +21,7 @@ function startApp() {
     });
     const terminalDivId = "terminal";
 
+    const fitAddon = new FitAddon.FitAddon();
     terminal.loadAddon(fitAddon);
 
     function fitToScreen() {
@@ -41,16 +41,7 @@ function startApp() {
         terminal.write("\r\n" + shellprompt);
     };
 
-
     startServer(terminal);
-
-    // terminal.onKey((event) => {
-    //     if (event.key === '\r') {
-    //         runCommand(terminal, event)
-    //     } else {
-    //         terminal.write(event.key)
-    //     }
-    // });
 
     let command = '';
 
